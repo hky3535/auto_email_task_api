@@ -12,34 +12,6 @@ class Config:
         self.parent = parent
         self.config = dict()
 
-    def assignment_config(self):
-        self.config = {
-            "basic": {
-                "smtp_server": 'smtp.chinatelecom.cn',
-                "smtp_port": 465,
-                "smtp_user": 'xxx@chinatelecom.cn',
-                "smtp_password": 'xxxxxx'
-            },
-            "tasks": [
-                {
-                    "from": "xxx@chinatelecom.cn",
-                    "to": "to_xxx@163.com",
-                    "subject": "test_subject1",
-                    "body": "test_body1",
-                    "file": "/workspace/email_sending/utils/storage/example.csv",
-                }, 
-                {
-                    "from": "xxx@chinatelecom.cn",
-                    "to": "to_xxx@163.com",
-                    "subject": "test_subject2",
-                    "body": "test_body2",
-                    "file": "/workspace/email_sending/utils/storage/example.csv",
-                }
-            ]
-        }
-        logging.info(f"配置参数已解析完成，解析结果为：{str(self.config)}")
-        self.parent.send.send_task()
-
     def http_config(self):
         def request_handler(self):
             parent = self

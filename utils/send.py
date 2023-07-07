@@ -53,11 +53,12 @@ class Send:
             msg['Subject'] = send_subject
             msg.attach(MIMEText(send_body, 'plain'))
             # 打开文件并作为附件上传
-            file_name, file_ext = os.path.splitext(os.path.basename(send_file))
-            _send_file = open(f"{send_file}", 'rb').read()
-            attachment = MIMEApplication(_send_file, _subtype=file_ext.strip("."))
-            attachment.add_header('Content-Disposition', 'attachment', filename=f"{file_name}{file_ext}")
-            msg.attach(attachment)
+            if send_file != "":
+                file_name, file_ext = os.path.splitext(os.path.basename(send_file))
+                _send_file = open(f"{send_file}", 'rb').read()
+                attachment = MIMEApplication(_send_file, _subtype=file_ext.strip("."))
+                attachment.add_header('Content-Disposition', 'attachment', filename=f"{file_name}{file_ext}")
+                msg.attach(attachment)
 
             # 发送邮件
             try:
