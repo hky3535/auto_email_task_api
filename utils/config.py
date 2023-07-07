@@ -12,7 +12,7 @@ class Config:
         self.parent = parent
         self.config = dict()
 
-    def http_config(self):
+    def http_config(self, ip, port):
         def request_handler(self):
             parent = self
             class RequestHandler(BaseHTTPRequestHandler):
@@ -50,6 +50,7 @@ class Config:
             
             return RequestHandler
         
-        request_handler = HTTPServer(("0.0.0.0", 8888), request_handler(self))
-        print("http://0.0.0.0:8888/send_emails")
+        request_handler = HTTPServer((ip, port), request_handler(self))
+        logging.info(f"email api started at: http://{ip}:{str(port)}/send_emails")
+        print(f"email api started at: http://{ip}:{str(port)}/send_emails")
         request_handler.serve_forever()

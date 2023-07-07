@@ -23,6 +23,6 @@ class Main:
         self.send = Send(self)
 
     def main(self):
-        self.config.http_config()
+        self.config.http_config("0.0.0.0", 7766)
 
 Main().main()
