@@ -30,3 +30,7 @@
     ]
 }
 ```
+## 运行方式
+* 在任何一个目录git clone https://github.com/hky3535/auto_email_task_api.git
+* python3 main.py
+* 程序仅使用python3.8及以上源码的库，不需要额外pip任何库
