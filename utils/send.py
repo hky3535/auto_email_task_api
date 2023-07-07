@@ -31,6 +31,9 @@ class Send:
         except Exception as e:
             logging.info(f"SMTP服务器连接失败，登录信息为：{str(self.smtp_basic)}")
             return False
+        except smtplib.SMTPAuthenticationError:
+            logging.info(f"SMTP服务器登陆失败，登录信息为：{str(self.smtp_basic)}")
+            return False
         
         return True
 
@@ -40,18 +43,23 @@ class Send:
             # 获取到任务信息
             send_from = task["from"]
             send_to = task["to"]
+            send_cc = task["cc"]
             send_subject = task["subject"]
             send_body = task["body"]
             send_file = task["file"]
 
             logging.info(f"邮件任务已启动，任务内容为：{str(task)}，该邮件将由{str(self.smtp_basic)}进行发送")
 
-            # 构造邮件正文、邮件内容
+            # 构造邮件 发件人、收件人、抄送人、正文、邮件内容
             msg = MIMEMultipart()
             msg['From'] = send_from
             msg['To'] = send_to
-            msg['Subject'] = send_subject
-            msg.attach(MIMEText(send_body, 'plain'))
+            if send_cc != "":
+                msg["Cc"] = send_cc
+            if send_subject != "":
+                msg['Subject'] = send_subject
+            if send_body != "":
+                msg.attach(MIMEText(send_body, 'plain'))
             # 打开文件并作为附件上传
             if send_file != "":
                 file_name, file_ext = os.path.splitext(os.path.basename(send_file))

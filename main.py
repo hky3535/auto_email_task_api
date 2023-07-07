@@ -10,14 +10,16 @@ from utils.config import Config
 
 class Main:
     def __init__(self):
+        self.root_dir = os.path.dirname(__file__)
+
         logging.basicConfig(
-            filename="run.log", 
+            filename=f"{self.root_dir}/run.log", 
             level=logging.INFO, 
             format='%(asctime)s %(levelname)s %(message)s'
         )
-        logging.info("日志将记录在run.log中")
-        self.root_dir = os.path.dirname(__file__)
         logging.info(f"当前程序所在路径为：{self.root_dir}")
+        logging.info(f"日志将记录在{self.root_dir}/run.log中")
+        
 
         self.config = Config(self)
         self.send = Send(self)
