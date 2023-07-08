@@ -2,7 +2,7 @@
 
 ## 后端http服务api
 * 通过post请求发送email任务
-```
+```json
 {
     "basic": {
         "smtp_server": "smtp服务器地址",
