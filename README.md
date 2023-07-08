@@ -6,7 +6,7 @@
 {
     "basic": {
         "smtp_server": "smtp服务器地址",
-        "smtp_port": smtp服务器端口,
+        "smtp_port": "smtp服务器端口",
         "smtp_user": "本人邮箱地址",
         "smtp_password": "smtp服务密码"
     },

@@ -24,7 +24,7 @@ class Send:
 
         try:
             # 连接到 SMTP 服务器，并登录到发件人邮箱
-            self.smtp = smtplib.SMTP_SSL(smtp_server, smtp_port)
+            self.smtp = smtplib.SMTP_SSL(smtp_server, int(smtp_port))
             # self.smtp.set_debuglevel(1)#打印出和SMTP服务器交互的所有信息。
             self.smtp.login(smtp_user, smtp_password)
             logging.info(f"已连接到SMTP服务器，登录信息为：{str(self.smtp_basic)}")
