@@ -2,6 +2,7 @@
 
 ## 后端http服务api
 * 通过post请求发送email任务
+* curl -H "Content-Type: application/json" -d @send_emails.json http://0.0.0.0:7766/send_emails
 ```json
 {
     "basic": {
@@ -30,6 +31,8 @@
     ]
 }
 ```
+* 通过get请求获取到日志文件内容
+* curl http://0.0.0.0:7766/get_logs
 ## 运行方式
 * 在任何一个目录git clone https://github.com/hky3535/auto_email_task_api.git
 * python3 main.py

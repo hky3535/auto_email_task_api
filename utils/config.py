@@ -26,7 +26,11 @@ class Config:
                     self.wfile.write(json.dumps({"code": custom_code, "message": custom_message}, ensure_ascii=False).encode())
 
                 def do_GET(self):
-                    self.custom_response(404, 404, "不支持GET请求")
+                    if self.path == "/get_logs":
+                        log_content = open(f"{parent.parent.root_dir}/run.log", "r").read()
+                        self.custom_response(200, 200, log_content)
+                    else:
+                        self.custom_response(404, 404, "GET请求路径错误")
 
                 def do_POST(self):
                     if self.path == "/send_emails":
