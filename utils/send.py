@@ -53,15 +53,14 @@ class Send:
             # 构造邮件 发件人、收件人、抄送人、正文、邮件内容
             msg = MIMEMultipart()
             msg['From'] = send_from
-            msg['To'] = send_to
-            if send_cc != "":
-                msg["Cc"] = send_cc
+            msg['To'] = ", ".join(send_to)
+            if len(send_cc) != 0:
+                msg["Cc"] = ", ".join(send_cc)
             if send_subject != "":
                 msg['Subject'] = send_subject
             if send_body != "":
-                msg.attach(MIMEText(send_body, 'plain'))
-            # 打开文件并作为附件上传
-            if send_file != "":
+                msg.attach(MIMEText(send_body, 'html'))
+            if send_file != "":     # 打开文件并作为附件上传
                 file_name, file_ext = os.path.splitext(os.path.basename(send_file))
                 _send_file = open(f"{send_file}", 'rb').read()
                 attachment = MIMEApplication(_send_file, _subtype=file_ext.strip("."))
@@ -70,7 +69,7 @@ class Send:
 
             # 发送邮件
             try:
-                self.smtp.sendmail(send_from, send_to, msg.as_string())
+                self.smtp.sendmail(send_from, send_to + send_cc, msg.as_string())
                 logging.info(f"邮件发送成功！发送信息：{str(self.smtp_basic)}发送内容：{str(task)}")
             except Exception as e:
                 logging.info(f"邮件发送失败！发送信息：{str(self.smtp_basic)}发送内容：{str(task)}")
